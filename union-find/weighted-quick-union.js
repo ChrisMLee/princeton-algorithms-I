@@ -1,5 +1,6 @@
-const QuickUnionUF = (n) => {
+const WeightedQuickUnion = (n) => {
     const idArray = Array.from(Array(n).keys())
+    const szArray = Array.from(Array(n).keys()).map(i => 1))
 
     const root = (r) => {
         while(r !== idArray[r]){
@@ -15,7 +16,16 @@ const QuickUnionUF = (n) => {
         union: (p, q) => {
             const i = root(p)
             const j = root(q)
-            return idArray[i] = j
+            if(i === j){
+                return
+            }
+            if(szArray[i] < szArray[j]){
+                idArray[i] = j
+                szArray[j] += szArray[i]
+            }else{
+                idArray[j] = i
+                szArray[i] += szArray[j]
+            }
         }
     }
 }
@@ -29,4 +39,3 @@ const main = () => {
 }
 
 main()
-
